@@ -1,0 +1,10 @@
+schemaVersion: '2.0.0'
+
+fileExistenceTests:
+- name: 'Entrypoint'
+  path: '/usr/local/bin/public-ip-sync-google-clouddns.sh'
+  shouldExist: true
+  permissions: '-rwxr-xr-x'
+  uid: 0
+  gid: 0
+  isExecutableBy: 'group'

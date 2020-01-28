@@ -1,0 +1,27 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  labels:
+    app.kubernetes.io/component: dns-record-updater
+    app.kubernetes.io/name: my-dyndns
+  name: my-dyndns
+  namespace: default
+spec:
+  egress:
+  - ports:
+    - port: 80
+      protocol: TCP
+    - port: 443
+      protocol: TCP
+    to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: dns-record-updater
+      app.kubernetes.io/name: my-dyndns
+  policyTypes:
+  - Ingress
+  - Egress
+...

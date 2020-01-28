@@ -1,0 +1,25 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: default
+
+resources:
+- serviceaccount.yaml
+- cronjob.yaml
+- networkpolicy.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+secretGenerator:
+- name: my-dyndns-gcloud-credentials
+  files:
+  - gcloud-service-account-key.json=files/gcloud-service-account-key.json
+
+configMapGenerator:
+- name: my-dyndns-gcloud-env
+  literals:
+    - CLOUDSDK_CORE_PROJECT="acme"
+    - CLOUDSDK_COMPUTE_ZONE="europe-west3"
+    - GCLOUD_DNS_ZONE_ID="example-com"
+    - DNS_RECORD_NAME="dyn.example.com."
